@@ -1,4 +1,5 @@
 ﻿using SignalR.BusinessLayer.Abstract;
+using SignalR.DataAccessLayer.Abstract;
 using SignalR.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,37 +11,37 @@ namespace SignalR.BusinessLayer.Concrete
 {
     public class AboutManager : IAboutService
     {
-        private readonly IAboutService _aboutService;
+        private readonly IAboutDal _aboutDal;
 
-        public AboutManager(IAboutService aboutService)
+        public AboutManager(IAboutDal aboutDal)
         {
-            _aboutService = aboutService;
+            _aboutDal = aboutDal;
         }
 
         public void TAdd(About entity)
         {
-            _aboutService.TAdd(entity);
-            
+            _aboutDal.Add(entity);
+
         }
 
         public void TDelete(About entity)
         {
-            _aboutService.TDelete(entity);
+            _aboutDal.Delete(entity);
         }
 
         public About TGetByID(int id)
         {
-            return _aboutService.TGetByID(id);
+            return _aboutDal.GetByID(id);
         }
 
         public List<About> TGetListAll()
         {
-            return _aboutService.TGetListAll();
+            return _aboutDal.GetListAll();
         }
 
         public void TUpdate(About entity)
         {
-            _aboutService.TUpdate(entity);
+            _aboutDal.Update(entity);
         }
     }
 }

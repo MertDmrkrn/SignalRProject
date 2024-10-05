@@ -1,4 +1,5 @@
 ﻿using SignalR.BusinessLayer.Abstract;
+using SignalR.DataAccessLayer.Abstract;
 using SignalR.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,36 +11,36 @@ namespace SignalR.BusinessLayer.Concrete
 {
     public class BookingService : IBookingService
     {
-        private readonly IBookingService _bookingService;
+        private readonly IBookingDal _bookingDal;
 
-        public BookingService(IBookingService bookingService)
+        public BookingService(IBookingDal bookingDal)
         {
-            _bookingService = bookingService;
+            _bookingDal = bookingDal;
         }
 
         public void TAdd(Booking entity)
         {
-            _bookingService.TAdd(entity);
+            _bookingDal.Add(entity);
         }
 
         public void TDelete(Booking entity)
         {
-            _bookingService.TDelete(entity);
+            _bookingDal.Delete(entity);
         }
 
         public Booking TGetByID(int id)
         {
-            return _bookingService.TGetByID(id);
+            return _bookingDal.GetByID(id);
         }
 
         public List<Booking> TGetListAll()
         {
-            return _bookingService.TGetListAll();
+            return _bookingDal.GetListAll();
         }
 
         public void TUpdate(Booking entity)
         {
-            _bookingService.TUpdate(entity);
+            _bookingDal.Update(entity);
         }
     }
 }

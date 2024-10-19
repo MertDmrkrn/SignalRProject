@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SignalR.BusinessLayer.Concrete
 {
-    public class BookingService : IBookingService
+    public class BookingManager : IBookingService
     {
         private readonly IBookingDal _bookingDal;
 
-        public BookingService(IBookingDal bookingDal)
+        public BookingManager(IBookingDal bookingDal)
         {
             _bookingDal = bookingDal;
         }

@@ -19,5 +19,7 @@ namespace SignalR.DtoLayer.ProductDto
         public string ImgUrl { get; set; }
 
         public bool Status { get; set; }
+
+        public int CategoryID { get; set; }
     }
 }

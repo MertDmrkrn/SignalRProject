@@ -1,0 +1,58 @@
+﻿@model UpdateProductDto
+
+
+@{
+    ViewData["Title"] = "UpdateProduct";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Ürün İşlemleri</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Ürün Güncelleme Saydası</div>
+                        </div>
+                        <input type="hidden" asp-for="ProductID" />
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="productname">Ürün Adını Giriniz</label>
+                                <input type="text" class="form-control" id="productname" asp-for="ProductName" placeholder="Ürün Adı">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="price">Ürün Fiyatını Giriniz</label>
+                                <input type="text" class="form-control" id="price" asp-for="Price" placeholder="Ürün Fiyatı">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="imgurl">Ürün Görselini Giriniz</label>
+                                <input type="text" class="form-control" id="imgurl" asp-for="ImgUrl" placeholder="Ürün Görseli">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="categoryid">Ürün Kategorisini Seçiniz</label>
+                                @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="description">Ürün Açıklamasını Giriniz</label>
+                                <input type="text" class="form-control" id="description" asp-for="Description" placeholder="Ürün Açıklaması">
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-primary">Ürünü Güncelle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

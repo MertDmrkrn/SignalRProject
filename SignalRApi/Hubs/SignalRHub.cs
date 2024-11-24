@@ -11,7 +11,6 @@ namespace SignalRApi.Hubs
         {
             var value = context.Categories.Count();
             await Clients.All.SendAsync("ReceiverCategoryCount", value);
-
         }
     }
 }

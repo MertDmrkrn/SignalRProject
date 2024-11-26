@@ -5,3 +5,15 @@
 
 --Kategori Adına Göre Ürün Sayısı1
 --Kategori Adına Göre Ürün Sayısı2
+
+--Ortalama Fiyat
+--En Yüksek Ürünlü Fiyat
+--En Düşük Ürünlü Fiyat
+--Ortalama Hamburger Fiyat
+
+--Toplam Sipariş Sayısı
+--Aktif Sipariş Sayıs
+--Son Sipariş Tutarı
+--Kasadaki Tutar
+--Bugünki Kazanç
+--Masa Sayısı

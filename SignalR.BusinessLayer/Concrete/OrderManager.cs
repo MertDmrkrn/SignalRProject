@@ -42,7 +42,7 @@ namespace SignalR.BusinessLayer.Concrete
         {
             return _orderDal.GetByID(id);
         }
-        
+
         public List<Order> TGetListAll()
         {
             return _orderDal.GetListAll();
@@ -50,12 +50,17 @@ namespace SignalR.BusinessLayer.Concrete
 
         public int TTotalOrderCount()
         {
-           return _orderDal.TotalOrderCount();
+            return _orderDal.TotalOrderCount();
         }
 
         public void TUpdate(Order entity)
         {
             _orderDal.Update(entity);
+        }
+
+        public decimal TTodayTotalPrice()
+        {
+            return _orderDal.TodayTotalPrice();
         }
     }
 }

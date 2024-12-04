@@ -21,3 +21,4 @@
 
 -----------------------------------------------
 
+İstatistiklerin Consume Edilmesi

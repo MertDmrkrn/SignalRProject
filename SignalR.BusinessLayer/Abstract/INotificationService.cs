@@ -11,6 +11,6 @@ namespace SignalR.BusinessLayer.Abstract
     {
         int TNotificationCountByStatusFalse();
 
-        List<Notification> TGetAllNotificationByFalse(); 
+        List<Notification> TGetAllNotificationByFalse();
     }
 }

@@ -12,5 +12,9 @@ namespace SignalR.DataAccessLayer.Abstract
         int NotificationCountByStatusFalse();
 
         List<Notification> GetAllNotificationsByFalse();
+
+        void NotificationStatusChangeToFalse(int id);
+
+        void NotificationStatusChangeToTrue(int id);
     }
 }

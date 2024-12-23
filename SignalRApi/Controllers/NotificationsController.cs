@@ -56,9 +56,9 @@ namespace SignalRApi.Controllers
             return Ok("Silme İşlemi Gerçekleştirildi.");
         }
         [HttpGet("{id}")]
-        public IActionResult GetNotification(int id) 
+        public IActionResult GetNotification(int id)
         {
-            var values= _notificationService.TGetByID(id);
+            var values = _notificationService.TGetByID(id);
             return Ok(values);
         }
         [HttpPut]
@@ -66,7 +66,7 @@ namespace SignalRApi.Controllers
         {
             Notification notification = new Notification()
             {
-                NotificationID=updateNotificationDto.NotificationID,
+                NotificationID = updateNotificationDto.NotificationID,
                 Description = updateNotificationDto.Description,
                 Icon = updateNotificationDto.Icon,
                 Status = updateNotificationDto.Status,
@@ -75,6 +75,20 @@ namespace SignalRApi.Controllers
             };
             _notificationService.TUpdate(notification);
             return Ok("Güncelleme İşlemi Gerçekleştirildi");
+        }
+
+        [HttpGet("NotificationStatusChangeToFalse/{id}")]
+        public IActionResult NotificationStatusChangeToFalse(int id)
+        {
+            _notificationService.TNotificationStatusChangeToFalse(id);
+            return Ok("Güncelleme Yapıldı");
+        }
+
+        [HttpGet("NotificationStatusChangeToTrue/{id}")]
+        public IActionResult NotificationStatusChangeToTrue(int id)
+        {
+            _notificationService.TNotificationStatusChangeToTrue(id);
+            return Ok("Güncelleme Yapıldı");
         }
 
     }

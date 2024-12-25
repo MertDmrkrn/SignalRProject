@@ -13,7 +13,7 @@ connection.on("ReceiveMessage", function (user, message) {
     li.appendChild(span);
     li.innerHTML += `:${message} - ${currentHour}:${currentMinute}`;
     document.getElementById("messagelist").appendChild(li);
-};
+});
 
 connection.start().then(function () {
     document.getElementById("sendbutton").disabled = false;

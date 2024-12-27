@@ -4,6 +4,9 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+    string statustrue = "Stokta Var";
+    string statusfalse = "Stokta Yok";
 }
 
 <div class="content">
@@ -32,14 +35,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach (var item in Model)
                                 {
+                                    count++;
                                     <tr>
-                                        <td>@item.ProductID</td>
+                                        <th>@count</th>
                                         <td>@item.ProductName</td>
                                         <td>@item.Price</td>
                                         <td>@item.CategoryName</td>
-                                        <td>@item.Status</td>
+                                        @if (item.Status == true)
+                                        {
+                                            <td>@statustrue</td>
+                                        }
+                                        @if (item.Status == false)
+                                        {
+                                            <td>@statusfalse</td>
+                                        }
                                         <td><a href="/Product/DeleteProduct/@item.ProductID" class="btn btn-outline-danger">Sil</a></td>
                                         <td><a href="/Product/UpdateProduct/@item.ProductID" class="btn btn-outline-success">Güncelle</a></td>
                                     </tr>

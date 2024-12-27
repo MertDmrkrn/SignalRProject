@@ -19,6 +19,20 @@
                         <input type="hidden" asp-for="ProductID" />
                         <div class="card-body">
                             <div class="form-group">
+                                <label for="status">Ürün Durumu</label>
+                                <select asp-for="Status" class="form-control">
+                                    <option value="true">
+                                        Stokta Var
+                                    </option>
+                                    <option value="false">
+                                        Stokta Yok
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
                                 <label for="productname">Ürün Adını Giriniz</label>
                                 <input type="text" class="form-control" id="productname" asp-for="ProductName" placeholder="Ürün Adı">
                             </div>

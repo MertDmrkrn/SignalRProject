@@ -89,6 +89,19 @@ namespace SignalRWebUI.Controllers
 			return View();
 		}
 
-	}
+		public async Task<IActionResult> VisibleStatus(int id)
+		{
+			var client=_httpClientFactory.CreateClient();
+			await client.GetAsync($"https://localhost:7166/api/Testimonial/VisibleStatus/{id}");
+			return RedirectToAction("Index");
+		}
+
+        public async Task<IActionResult> InvisibleStatus(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.GetAsync($"https://localhost:7166/api/Testimonial/InvisibleStatus/{id}");
+            return RedirectToAction("Index");
+        }
+
+    }
 }
-//Testimonial da güncelleme hatası var

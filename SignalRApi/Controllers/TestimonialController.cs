@@ -37,7 +37,7 @@ namespace SignalRApi.Controllers
                 Name = createTestimonialDto.Name,
                 Comment = createTestimonialDto.Comment,
                 ImgUrl = createTestimonialDto.ImgUrl,
-                Status = createTestimonialDto.Status
+                Status = true
             });
             return Ok("Müşteri Yorum Bilgisi Eklendi.");
         }
@@ -68,9 +68,23 @@ namespace SignalRApi.Controllers
                 Name = updateTestimonialDto.Name,
                 Comment = updateTestimonialDto.Comment,
                 ImgUrl=updateTestimonialDto.ImgUrl,
-                Status = updateTestimonialDto.Status
+                Status = true
             });
             return Ok("Müşteri Yorum Bilgisi Güncellendi.");
+        }
+
+        [HttpGet("VisibleStatus/{id}")]
+        public IActionResult VisibleStatus(int id)
+        {
+            _testimonialService.TVisibleStatus(id);
+            return Ok("Referans Görünür Hale Geldi");
+        }
+
+        [HttpGet("InvisibleStatus/{id}")]
+        public IActionResult InvisibleStatus(int id)
+        {
+            _testimonialService.TInvisibleStatus(id);
+            return Ok("Referans Görünmez Hale Geldi");
         }
     }
 }

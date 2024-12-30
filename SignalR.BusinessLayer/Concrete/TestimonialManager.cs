@@ -38,9 +38,19 @@ namespace SignalR.BusinessLayer.Concrete
             return _testimonialDal.GetListAll();
         }
 
+        public void TInvisibleStatus(int id)
+        {
+            _testimonialDal.InvisibleStatus(id);
+        }
+
         public void TUpdate(Testimonial entity)
         {
             _testimonialDal.Update(entity);
+        }
+
+        public void TVisibleStatus(int id)
+        {
+            _testimonialDal.VisibleStatus(id);
         }
     }
 }

@@ -15,5 +15,21 @@ namespace SignalR.DataAccessLayer.EntityFramework
         public EfTestimonialDal(SignalRContext context) : base(context)
         {
         }
+
+        public void InvisibleStatus(int id)
+        {
+            using var context = new SignalRContext();
+            var values = context.Testimonials.Find(id);
+            values.Status = false;
+            context.SaveChanges();
+        }
+
+        public void VisibleStatus(int id)
+        {
+            using var context = new SignalRContext();
+            var values = context.Testimonials.Find(id);
+            values.Status = true;
+            context.SaveChanges();
+        }
     }
 }

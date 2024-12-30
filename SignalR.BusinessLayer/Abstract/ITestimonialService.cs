@@ -9,5 +9,8 @@ namespace SignalR.BusinessLayer.Abstract
 {
     public interface ITestimonialService : IGenericService<Testimonial>
     {
+        void TVisibleStatus(int id);
+
+        void TInvisibleStatus(int id);
     }
 }

@@ -9,5 +9,8 @@ namespace SignalR.DataAccessLayer.Abstract
 {
     public interface ITestimonialDal : IGenericDal<Testimonial>
     {
+        void VisibleStatus(int id);
+
+        void InvisibleStatus(int id);
     }
 }

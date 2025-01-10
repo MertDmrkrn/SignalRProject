@@ -106,6 +106,18 @@ namespace SignalRApi.Hubs
             var value9 = _productService.TProductPriceBySteakBurger();
             await Clients.All.SendAsync("ReceiveProductPriceBySteakBurger", value9);
 
+            var value10 = _productService.TTotalPriceByDrinkCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceByDrinkCategory", value10);
+
+            var value11 = _productService.TTotalPriceByDessertCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceByDessertCategory", value11);
+
+            var value12 = _categoryService.TCategoryCount();
+            await Clients.All.SendAsync("ReceiveCategoryCount", value12);
+
+            var value13 = _bookingService.TBookingCount();
+            await Clients.All.SendAsync("ReceiveBookingCount", value13);
+
         }
 
         public async Task GetBookingList()
@@ -144,7 +156,7 @@ namespace SignalRApi.Hubs
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             clientCount--;
-            await Clients.All.SendAsync("ReceiveClientCount",clientCount);
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
             await base.OnDisconnectedAsync(exception);
         }
 

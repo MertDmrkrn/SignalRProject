@@ -26,5 +26,9 @@ namespace SignalR.BusinessLayer.Abstract
         public decimal TProductPriceAvgByHamburger();
 
         public decimal TProductPriceBySteakBurger();
+
+        public decimal TTotalPriceByDrinkCategory();
+
+        public decimal TTotalPriceByDessertCategory();
     }
 }

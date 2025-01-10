@@ -94,6 +94,18 @@ namespace SignalRApi.Controllers
             return Ok(values.ToList());
         }
 
+        [HttpGet("TotalPriceByDrinkCategory")]
+        public IActionResult ProductListWithoutCategory()
+        {
+            return Ok(_productService.TTotalPriceByDrinkCategory());
+        }
+
+        [HttpGet("TotalPriceByDessertCategory")]
+        public IActionResult TotalPriceByDessertCategory()
+        {
+            return Ok(_productService.TTotalPriceByDessertCategory());
+        }
+
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto createProductDto)
         {

@@ -86,5 +86,11 @@ namespace SignalRApi.Controllers
             _bookingService.TBookingStatusCancelled(id);
             return Ok("Rezervasyon Açıklaması Değiştirildi.");
         }
+
+        [HttpGet("BookingCount")]
+        public IActionResult BookingCount()
+        {
+            return Ok(_bookingService.TBookingCount());
+        }
     }
 }

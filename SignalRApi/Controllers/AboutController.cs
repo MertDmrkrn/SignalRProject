@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.AboutDto;
@@ -11,30 +12,35 @@ namespace SignalRApi.Controllers
     public class AboutController : ControllerBase
     {
         private readonly IAboutService _aboutService;
+        private readonly IMapper _mapper;
 
-        public AboutController(IAboutService aboutService)
+        public AboutController(IAboutService aboutService, IMapper mapper)
         {
             _aboutService = aboutService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult AboutList()
         {
             var values = _aboutService.TGetListAll();
-            return Ok(values);
+            return Ok(_mapper.Map<List<ResultAboutDto>>(values)); //mapper kullandığımız hali
+            //return Ok(values); Mapper kullanmadığımız hali
         }
 
         [HttpPost]
         public IActionResult CreateAbout(CreateAboutDto createAboutDto)
         {
-            About about = new About()//DTO kısmındaki veriler ile about entity'si içerisindeki verileri eşleyerek dto kısmında hatayı engelledik mapper yöntemini kullanabileceğiz. Bu 1.Yöntem
-            {
-                Title = createAboutDto.Title,
-                Description = createAboutDto.Description,
-                ImgUrl = createAboutDto.ImgUrl
-            };
+            var values=_mapper.Map<About>(createAboutDto);//Mapper kullanılmış hali yani mappersız kullandığımız halinin aynısını yapıyor tek farkı kısa kullanım
 
-            _aboutService.TAdd(about);
+            //About about = new About()//DTO kısmındaki veriler ile about entity'si içerisindeki verileri eşleyerek dto kısmında hatayı engelledik mapper yöntemini kullanabileceğiz. Bu 1.Yöntem
+            //{
+            //    Title = createAboutDto.Title,
+            //    Description = createAboutDto.Description,
+            //    ImgUrl = createAboutDto.ImgUrl
+            //};//Mapper kullanmadığımız hali
+
+            _aboutService.TAdd(values);
             return Ok("Hakkımda Kısmı Başarılı Bir Şekilde Eklendi.");
         }
 
@@ -49,15 +55,18 @@ namespace SignalRApi.Controllers
         [HttpPut]
         public IActionResult UpdateAbout(UpdateAboutDto updateAboutDto)
         {
-            About about = new About
-            {
-                AboutID=updateAboutDto.AboutID,
-                Description = updateAboutDto.Description,
-                ImgUrl = updateAboutDto.ImgUrl,
-                Title = updateAboutDto.Title
-            };
+            var values=_mapper.Map<About>(updateAboutDto);
 
-            _aboutService.TUpdate(about);
+
+            //About about = new About
+            //{
+            //    AboutID = updateAboutDto.AboutID,
+            //    Description = updateAboutDto.Description,
+            //    ImgUrl = updateAboutDto.ImgUrl,
+            //    Title = updateAboutDto.Title
+            //};
+
+            _aboutService.TUpdate(values);
             return Ok("Hakkımda Kısmı Güncellendi.");
         }
 
@@ -65,7 +74,7 @@ namespace SignalRApi.Controllers
         public IActionResult GetAbout(int id)
         {
             var values = _aboutService.TGetByID(id);
-            return Ok(values);
+            return Ok(_mapper.Map<GetAboutDto>(values));//sadece values çekmek yerine mapper yapısını kullanarak da veriyi çektik.
         }
     }
 }

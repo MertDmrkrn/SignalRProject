@@ -30,15 +30,8 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateDiscount(CreateDiscountDto createDiscountDto)
         {
-            _discountService.TAdd(new Discount()
-            {
-                Title = createDiscountDto.Title,
-                Description = createDiscountDto.Description,
-                Amount = createDiscountDto.Amount,
-                ImgUrl = createDiscountDto.ImgUrl,
-                Status = false
-
-            });
+            var values = _mapper.Map<Discount>(createDiscountDto);
+            _discountService.TAdd(values);
             return Ok("İndirim Eklendi.");
         }
 
@@ -55,21 +48,14 @@ namespace SignalRApi.Controllers
         public IActionResult GetDiscount(int id)
         {
             var values = _discountService.TGetByID(id);
-            return Ok(values);
+            return Ok(_mapper.Map<GetDiscountDto>(values));
         }
 
         [HttpPut]
         public IActionResult UpdateDiscount(UpdateDiscountDto updateDiscountDto)
         {
-            _discountService.TUpdate(new Discount()
-            {
-                DiscountID = updateDiscountDto.DiscountID,
-                Title = updateDiscountDto.Title,
-                Description = updateDiscountDto.Description,
-                Amount = updateDiscountDto.Amount,
-                ImgUrl = updateDiscountDto.ImgUrl,
-                Status = false
-            });
+            var values=_mapper.Map<Discount>(updateDiscountDto);
+            _discountService.TUpdate(values);
             return Ok("İndirim Güncellendi.");
         }
 

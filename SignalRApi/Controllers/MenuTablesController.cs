@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.MenuTableDto;
@@ -11,10 +12,12 @@ namespace SignalRApi.Controllers
     public class MenuTablesController : ControllerBase
     {
         private readonly IMenuTableService _menuTableService;
+        private readonly IMapper _mapper;
 
-        public MenuTablesController(IMenuTableService menuTableService)
+        public MenuTablesController(IMenuTableService menuTableService, IMapper mapper)
         {
             _menuTableService = menuTableService;
+            _mapper = mapper;
         }
 
         [HttpGet("MenuTableCount")]
@@ -26,27 +29,23 @@ namespace SignalRApi.Controllers
         [HttpGet]
         public IActionResult MenuTableList()
         {
-            var values = _menuTableService.TGetListAll();
+            var values = _mapper.Map<List<ResultMenuTableDto>>(_menuTableService.TGetListAll());
             return Ok(values);
         }
 
         [HttpPost]
         public IActionResult CreateMenuTable(CreateMenuTableDto createMenuTableDto)
         {
-            MenuTable menuTable = new MenuTable()
-            {
-
-                Name = createMenuTableDto.Name,
-                Status = false
-            };
-            _menuTableService.TAdd(menuTable);
+            createMenuTableDto.Status = false;
+            var values = _mapper.Map<MenuTable>(createMenuTableDto);
+            _menuTableService.TAdd(values);
             return Ok("Ekleme İşlemi Gerçekleştirildi");
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteMenuTable(int id) 
+        public IActionResult DeleteMenuTable(int id)
         {
-            var values=_menuTableService.TGetByID(id);
+            var values = _menuTableService.TGetByID(id);
             _menuTableService.TDelete(values);
             return Ok("Silme İşlemi Gerçekleştirildi");
         }
@@ -54,21 +53,16 @@ namespace SignalRApi.Controllers
         [HttpPut]
         public IActionResult UpdateMenuTable(UpdateMenuTableDto updateMenuTableDto)
         {
-            MenuTable menuTable = new MenuTable()
-            {
-                MenuTableID = updateMenuTableDto.MenuTableID,
-                Name = updateMenuTableDto.Name,
-                Status = false
-            };
-            _menuTableService.TUpdate(menuTable);
+            var values = _mapper.Map<MenuTable>(updateMenuTableDto);
+            _menuTableService.TUpdate(values);
             return Ok("Güncelleme İşlemi Gerçekleştirildi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetMenuTable(int id) 
+        public IActionResult GetMenuTable(int id)
         {
             var values = _menuTableService.TGetByID(id);
-            return Ok(values);
+            return Ok(_mapper.Map<GetMenuTableDto>(values));
         }
     }
 }

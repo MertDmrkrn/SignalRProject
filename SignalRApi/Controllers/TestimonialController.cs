@@ -31,20 +31,14 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
-            _testimonialService.TAdd(new Testimonial()
-            {
-                Title = createTestimonialDto.Title,
-                Name = createTestimonialDto.Name,
-                Comment = createTestimonialDto.Comment,
-                ImgUrl = createTestimonialDto.ImgUrl,
-                Status = true
-            });
+            createTestimonialDto.Status = true;
+            var values = _mapper.Map<Testimonial>(createTestimonialDto);
+            _testimonialService.TAdd(values);
             return Ok("Müşteri Yorum Bilgisi Eklendi.");
         }
 
         [HttpDelete("{id}")]
-
-		public IActionResult DeleteTestimonial(int id)
+        public IActionResult DeleteTestimonial(int id)
         {
             var values = _testimonialService.TGetByID(id);
             _testimonialService.TDelete(values);
@@ -55,21 +49,15 @@ namespace SignalRApi.Controllers
         public IActionResult GetTestimonial(int id)
         {
             var values = _testimonialService.TGetByID(id);
-            return Ok(values);
+            return Ok(_mapper.Map<GetTestimonialDto>(values));
         }
 
         [HttpPut]
         public IActionResult UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
-            _testimonialService.TUpdate(new Testimonial()
-            {
-                TestimonialID=updateTestimonialDto.TestimonialID,
-                Title = updateTestimonialDto.Title,
-                Name = updateTestimonialDto.Name,
-                Comment = updateTestimonialDto.Comment,
-                ImgUrl=updateTestimonialDto.ImgUrl,
-                Status = true
-            });
+            updateTestimonialDto.Status = true;
+            var values = _mapper.Map<Testimonial>(updateTestimonialDto);
+            _testimonialService.TUpdate(values);
             return Ok("Müşteri Yorum Bilgisi Güncellendi.");
         }
 

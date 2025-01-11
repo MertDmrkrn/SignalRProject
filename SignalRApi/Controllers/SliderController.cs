@@ -31,15 +31,8 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateSlider(CreateSliderDto createSliderDto)
         {
-            _sliderService.TAdd(new Slider()
-            {
-                Title1 = createSliderDto.Title1,
-                Descripton1 = createSliderDto.Descripton1,
-                Title2 = createSliderDto.Title2,
-                Descripton2 = createSliderDto.Descripton2,
-                Title3 = createSliderDto.Title3,
-                Descripton3 = createSliderDto.Descripton3
-            });
+            var values = _mapper.Map<Slider>(createSliderDto);
+            _sliderService.TAdd(values);
             return Ok("Öne Çıkan Alan Bilgisi Eklendi.");
         }
 
@@ -55,23 +48,14 @@ namespace SignalRApi.Controllers
         public IActionResult GetSlider(int id)
         {
             var values = _sliderService.TGetByID(id);
-            return Ok(values);
+            return Ok(_mapper.Map<GetSliderDto>(values));
         }
 
         [HttpPut]
         public IActionResult UpdateSlider(UpdateSliderDto updateSliderDto)
         {
-            _sliderService.TUpdate(new Slider()
-            {
-                SliderID = updateSliderDto.SliderID,
-                Title1 = updateSliderDto.Title1,
-                Descripton1 = updateSliderDto.Descripton1,
-                Title2 = updateSliderDto.Title2,
-                Descripton2 = updateSliderDto.Descripton2,
-                Title3 = updateSliderDto.Title3,
-                Descripton3 = updateSliderDto.Descripton3
-
-            });
+            var values=_mapper.Map<Slider>(updateSliderDto);
+            _sliderService.TUpdate(values);
             return Ok("Öne Çıkan Alan Bilgisi Güncellendi.");
         }
     }

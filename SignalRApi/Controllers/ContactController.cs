@@ -30,17 +30,9 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateContact(CreateContactDto createContactDto)
         {
-            _contactService.TAdd(new Contact()
-            {
-                FooterDescription = createContactDto.FooterDescription,
-                Location = createContactDto.Location,
-                Mail = createContactDto.Mail,
-                PhoneNumber = createContactDto.PhoneNumber,
-                FooterTitle = createContactDto.FooterTitle,
-                OpenDays = createContactDto.OpenDays,
-                OpenDaysDescription = createContactDto.OpenDaysDescription,
-                OpenHours = createContactDto.OpenHours
-            });
+
+            var values = _mapper.Map<Contact>(createContactDto);
+            _contactService.TAdd(values);
             return Ok("İletişim Bilgisi Eklendi.");
         }
 
@@ -56,24 +48,14 @@ namespace SignalRApi.Controllers
         public IActionResult GetContact(int id)
         {
             var values = _contactService.TGetByID(id);
-            return Ok(values);
+            return Ok(_mapper.Map<GetContactDto>(values));
         }
 
         [HttpPut]
         public IActionResult UpdateContact(UpdateContactDto updateContactDto)
         {
-            _contactService.TUpdate(new Contact()
-            {
-                ContactID = updateContactDto.ContactID,
-                FooterDescription = updateContactDto.FooterDescription,
-                Location = updateContactDto.Location,
-                Mail = updateContactDto.Mail,
-                PhoneNumber = updateContactDto.PhoneNumber,
-                FooterTitle= updateContactDto.FooterTitle,
-                OpenDays = updateContactDto.OpenDays,
-                OpenDaysDescription = updateContactDto.OpenDaysDescription,
-                OpenHours= updateContactDto.OpenHours
-            });
+            var values=_mapper.Map<Contact>(updateContactDto);
+            _contactService.TUpdate(values);
             return Ok("İletişim Bilgisi Güncellendi.");
         }
     }

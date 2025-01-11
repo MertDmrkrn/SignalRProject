@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SignalRWebUI.Dtos.ContactDtos;
 using SignalRWebUI.Dtos.MessageDto;
 using System.Text;
 
 namespace SignalRWebUI.Controllers
 {
+    [AllowAnonymous]
     public class DefaultController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -14,15 +18,28 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+			//var client = _httpClientFactory.CreateClient();
+			//var responseMessage = await client.GetAsync("https://localhost:7166/api/Contact");
+			//var jsonData = await responseMessage.Content.ReadAsStringAsync();
+			//var values = JsonConvert.DeserializeObject<ResultContactDto>(jsonData);
+			//ViewBag.location = values.Location;
+
+            HttpClient client=new HttpClient();
+            HttpResponseMessage response=await client.GetAsync("https://localhost:7166/api/Contact");
+            response.EnsureSuccessStatusCode();
+            string responseBody=await response.Content.ReadAsStringAsync();
+            JArray item=JArray.Parse(responseBody);
+            string value = item[0]["location"].ToString();
+            ViewBag.location = value;
+			return View();
         }
 
         [HttpGet]
-        public PartialViewResult SendMessage()
+        public async Task<PartialViewResult> SendMessage()
         {
-            return PartialView();
+			return PartialView();
         }
 
         [HttpPost]
@@ -34,7 +51,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7166/api/Messages", stringContent);
             if(responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Default");
             }
             return View();
         }

@@ -41,15 +41,23 @@ namespace SignalRWebUI.Controllers
             ViewBag.location = value;
 
 
+            createBookingDto.Description = "Rezervasyon Alındı";
+
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createBookingDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7166/api/Booking", stringContent);
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Default");
             }
-            return View();
+            else
+            {
+                var errorContent = await responseMessage.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, errorContent);
+                return View();
+            }
         }
     }
 }

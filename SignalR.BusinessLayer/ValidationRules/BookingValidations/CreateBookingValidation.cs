@@ -20,7 +20,7 @@ namespace SignalR.BusinessLayer.ValidationRules.BookingValidations
 
 
             RuleFor(x => x.Name).MinimumLength(5).WithMessage("Lütfen İsim Alanına En Az 5 Karakter Doldurunuz ").MaximumLength(50).WithMessage("Lütfen İsim Alanına En Fazla 50 Karakter Doldurunuz");
-            RuleFor(x => x.Description).MinimumLength(5).WithMessage("Lütfen Açıklama Alanına En Az 5 Karakter Doldurunuz ").MaximumLength(250).WithMessage("Lütfen Açıklama Alanına En Fazla 250 Karakter Doldurunuz");
+            RuleFor(x => x.Description).MinimumLength(1).WithMessage("Lütfen Açıklama Alanına En Az 5 Karakter Doldurunuz ").MaximumLength(250).WithMessage("Lütfen Açıklama Alanına En Fazla 250 Karakter Doldurunuz");
 
             RuleFor(x => x.Mail).EmailAddress().WithMessage("Lütfen Geçerli Bir E-Mail Adresi Giriniz.");
             

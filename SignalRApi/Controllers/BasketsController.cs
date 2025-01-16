@@ -52,9 +52,11 @@ namespace SignalRApi.Controllers
             {
                 ProductID = createBasketDto.ProductID,
                 Count = 1,
-                MenuTableID = 3,
+                MenuTableID = createBasketDto.MenuTableID,
+                //MenuTableID = context.Baskets.Where(x=>x.MenuTableID==createBasketDto.MenuTableID).ToList(),
                 Price = context.Products.Where(x => x.ProductID == createBasketDto.ProductID).Select(y => y.Price).FirstOrDefault(),
-                TotalPrice = 0
+                TotalPrice = createBasketDto.TotalPrice,
+
             });
             return Ok();
         }

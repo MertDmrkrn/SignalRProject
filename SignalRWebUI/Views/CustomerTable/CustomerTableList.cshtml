@@ -1,15 +1,19 @@
-﻿@{
+﻿@model List<ResultMenuTableDto>
+
+@{
     ViewData["Title"] = "Index";
     Layout = null;
+    string color = "";
+    string status = "";
 }
 
 
 <style>
-    .widget {
+    .widgettrue {
         width: 200px;
         height: 100px;
-        background-color: palevioletred; /* Kırmızı arka plan */
-        
+        background-color: orangered; /* Kırmızı arka plan */
+
         display: flex;
         align-items: center;
         border-radius: 10px;
@@ -22,7 +26,7 @@
         width: 200px;
         height: 100px;
         background-color: #2ecc71; /* Yeşil arka plan */
-        
+
         display: flex;
         align-items: center;
         border-radius: 10px;
@@ -61,7 +65,7 @@
             font-size: 14px;
         }
 </style>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
 <html>
@@ -74,7 +78,6 @@
     <br />
 
     <div class="container-fluid">
-
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-dark mb-30">
@@ -86,19 +89,45 @@
         </div>
     </div>
 
+
+
     <div class="container-fluid">
         <br />
-        <div class="row px-xl-5">
+        <div class="row px-xl-5" style="margin-right:10px;">
+            @foreach (var item in Model)
+            {
+                @if (item.Status == true)
+                {
+                    color = "widgettrue";
+                    status = "Masa Dolu";
+                }
+                else
+                {
+                    color = "widgetfalse";
+                    status = "Masa Boş";
+                }
 
-            <div class="widget">
-                <div class="widget-icon">
-                    <i class="fa-solid fa-cash-register"></i><!-- Masa ikonu -->
+                <div class="col-md-3 mb-4">
+                    <div class="@color">
+                        @if (item.Status == true)
+                        {
+                            <div class="widget-icon">
+                                <i class="fas fa-chair"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="widget-icon">
+                                <a href="/Menu/Index/@item.MenuTableID"><i class="fas fa-chair"></i></a>
+                            </div>
+                        }
+                        <div class="widget-text">
+                            <h3>@item.Name</h3>
+                            <p>@status</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="widget-text">
-                    <h3>Bahçe 01</h3>
-                    <p>Dolu</p>
-                </div>
-            </div>
+            }
         </div>
     </div>
 

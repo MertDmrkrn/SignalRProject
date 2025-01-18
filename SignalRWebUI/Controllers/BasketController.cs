@@ -14,10 +14,11 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
+            TempData["id"] = id;
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7166/api/Baskets/BasketListByMenuTableWithProductName?id=3");
+            var responseMessage = await client.GetAsync("https://localhost:7166/api/Baskets/BasketListByMenuTableWithProductName?id=" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -27,15 +28,17 @@ namespace SignalRWebUI.Controllers
 
             return View();
         }
-       
+
         //Silme
-        public async Task<IActionResult> DeleteBasket(int id)
+        public async Task<IActionResult> DeleteBasket(int id, int id2)
         {
+            id2 = int.Parse(TempData["id"].ToString());
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.DeleteAsync($"https://localhost:7166/api/Baskets/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return new RedirectResult($"~/Basket/Index/{id2}");
             }
             return NoContent();
         }
